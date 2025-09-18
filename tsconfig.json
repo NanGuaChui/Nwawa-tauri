@@ -13,6 +13,19 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
+    
+    /* Path mapping */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@layout/*": ["src/layout/*"],
+      "@stores/*": ["src/stores/*"],
+      "@router/*": ["src/router/*"],
+      "@utils/*": ["src/utils/*"],
+      "@assets/*": ["src/assets/*"],
+      "@views/*": ["src/views/*"]
+    },
 
     /* Linting */
     "strict": true,
