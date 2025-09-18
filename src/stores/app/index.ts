@@ -3,11 +3,11 @@ import { defineStore } from 'pinia';
 export const useAppStore = defineStore('app-store', {
   persist: {
     // 从 omit 列表中移除 currentLineIndex，确保它被持久化
-    omit: ['bgOpacity', 'mouseOpacity']
+    omit: ['bgTransparent', 'mouseOpacity']
   },
   state: () => {
     return {
-      bgOpacity: 1,
+      bgTransparent: false,
       mouseOpacity: false,
       autoCheckUpdate: true,
       mouseOutTime: 10,
@@ -29,12 +29,12 @@ export const useAppStore = defineStore('app-store', {
     },
     // 添加计算背景颜色的getter
     bgColor: (state) => {
-      return `rgba(255, 255, 255, ${state.bgOpacity})`;
+      return `rgba(255, 255, 255, ${state.bgTransparent})`;
     }
   },
   actions: {
-    setBgOpacity(bgOpacity: number) {
-      this.bgOpacity = bgOpacity;
+    setBgTransparent(bgTransparent: boolean) {
+      this.bgTransparent = bgTransparent;
     },
     setMouseOpacity(mouseOpacity: boolean) {
       this.mouseOpacity = mouseOpacity;

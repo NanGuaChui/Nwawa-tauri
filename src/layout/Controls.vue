@@ -1,22 +1,8 @@
-<template>
-  <div class="flex items-center p-1 transition-opacity">
-    <IconButton
-      v-for="(btn, index) in buttons"
-      :key="index"
-      :style="appStore.fontCss"
-      :icon="btn.icon"
-      :text="btn.text"
-      :btn-class="btn.class"
-      @click="btn.onClick"
-    />
-  </div>
-</template>
-
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { useAppStore } from '@stores/app';
-import { setWindowSize } from '@utils/ipc-util';
-import IconButton from '@components/IconButton.vue';
+import { useAppStore } from '@/stores/app';
+import { setWindowSize } from '@/utils/ipc-util';
+import IconButton from '@/components/IconButton.vue';
 
 const props = defineProps<{ onOpenSetting: () => void }>();
 
@@ -37,7 +23,7 @@ const toggleSingleLineMode = () => {
 };
 
 const switchOpacity = () => {
-  appStore.setBgOpacity(appStore.bgOpacity === 0 ? 1 : 0);
+  appStore.setBgTransparent(!appStore.bgTransparent);
 };
 
 const onPrev = () => {};
@@ -62,11 +48,25 @@ const buttons = computed(() => [
     class: appStore.singleLineMode ? '!text-green-300' : '',
     onClick: toggleSingleLineMode,
   },
-  { icon: 'ri:a-b', text: '背景色', class: appStore.bgOpacity !== 1 ? '!text-green-400' : '', onClick: switchOpacity },
+  { icon: 'ri:a-b', text: '背景色', class: appStore.bgTransparent ? '!text-green-400' : '', onClick: switchOpacity },
   { icon: 'ri:arrow-left-line', text: '上一页', onClick: onPrev },
   { icon: 'ri:arrow-right-line', text: '下一页', onClick: onNext },
   { icon: 'ri:drag-move-line', text: '拖动窗口', class: 'drap' },
 ]);
 </script>
+
+<template>
+  <div class="flex items-center p-1 transition-opacity">
+    <IconButton
+      v-for="(btn, index) in buttons"
+      :key="index"
+      :style="appStore.fontCss"
+      :icon="btn.icon"
+      :text="btn.text"
+      :btn-class="btn.class"
+      @click="btn.onClick"
+    />
+  </div>
+</template>
 
 <style lang="scss" scoped></style>
